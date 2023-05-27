@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #1f1f1f;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        window.addEventListener('click', spriteEffect)
+        console.log(window.addEventListener('click', spriteEffect))
+
+        function spriteEffect(e){
+            const width = 140
+            const height = 300
+            const cols = 5
+            const rows = 2
+            let current = 0 //초기화
+            const intervalGap = 1000 / 30  //1초에 30번 실행시키는 목적 -> 인터벌을 실행시킨다 
+
+            const sprite = document.createElement('div') //스프라이트 div 속성 만들어준다
+            sprite.style.position = 'absolute' 
+            sprite.style.left = e.clientX + 'px' //이벤트 클라이언트 값 가져온다
+            sprite.style.top = e.clientY + 'px' 
+            sprite.style.backgroundImage = 'url("./images/다운로드.png")'
+            sprite.style.width = width + 'px'
+            sprite.style.height = height + 'px'
+            sprite.style.backgroundSize = `${width * cols}px ${height * rows}px`
+            sprite.style.transform = `translate(-50%, -50%)` //마우스 좌표가 이미지 중앙으로 ! 
+            document.body.append(sprite)
+
+            const intervalId = setInterval(( ) => {
+                const currentCol = current % cols //나머지 구하기
+                const currentRow = Math.floor(current / cols) // 몫 구하기
+
+                sprite.style.backgroundPosition =
+                    `${-width * currentCol}px ${-height * currentRow}px`
+
+                    current++
+            }, intervalGap )
+        }
+    </script>
+    <!-- <img src="./images/다운로드.png"> -->
+</body>
+</html>
